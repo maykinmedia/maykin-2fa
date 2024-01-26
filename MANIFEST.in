@@ -1,0 +1,8 @@
+include *.rst
+include LICENSE
+include maykin_2fa/py.typed
+recursive-include maykin_2fa *.html
+recursive-include maykin_2fa *.txt
+recursive-include maykin_2fa *.po
+global-exclude __pycache__
+global-exclude *.py[co]
