@@ -11,6 +11,8 @@ Welcome to maykin-2fa's documentation!
 
 <One liner describing the project>
 
+Built on top of https://django-two-factor-auth.readthedocs.io/en/stable/index.html
+
 Features
 ========
 

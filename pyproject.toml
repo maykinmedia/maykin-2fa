@@ -27,7 +27,10 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "django>=4.2"
+    "django>=4.2",
+    # TODO: check if we want phonenumberslite or phonenumbers - we typically only
+    # use OTP and/or hardware tokens so this may not be relevant at all.
+    "django-two-factor-auth[phonenumberslite,webauthn]",
 ]
 
 [project.urls]
@@ -71,6 +74,9 @@ sections=["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 DJANGO_SETTINGS_MODULE = "testapp.settings"
+markers = [
+    "user_request_auth_backend: specify backend that a user has authenticated with",
+]
 
 [tool.bumpversion]
 current_version = "0.1.0"
