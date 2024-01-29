@@ -48,16 +48,36 @@ you must set ``maykin_2fa.middleware.OTPMiddleware``, after the authentication m
         ...,
     ]
 
-**Disable admin patching**
+**``urls.py``**
+
+The admin must be monkeypatched so that third party packages registering to the default
+admin are also properly 2FA-protected. Unfortunately monkeypatching seems to be the only
+viable approach.
+
+This should not be a problem in tests etc. since we can mark authentication backends as
+no-2FA-required, such as the django webtest backend.
+
+In your root ``urls.py``, ensure the admin is patched and include the URLs to the
+custom views:
+
+.. code-block:: python
+
+    from maykin_2fa import monkeypatch_admin
+
+    monkeypatch_admin()
+
+    urlpatterns = [
+        # should come BEFORE the default admin URLs to override behaviour.
+        path("admin/", include("maykin_2fa.urls")),
+        path("admin/", admin.site.urls),
+    ]
+
+Additionally, the default login patching can/should be disabled as it's no longer
+relevant by the above monkeypatching.
 
 .. code-block:: python
 
     TWO_FACTOR_PATCH_ADMIN = False
-
-The default is ``True``. Patching the admin uses some project-global URLs, which we
-will manage ourselves instead.
-
-.. todo:: CHECK IF THIS STILL NEEDED!
 
 **Congigure WebAuthn relying party**
 

@@ -2,6 +2,7 @@ import functools
 from typing import TypeAlias
 
 from django.conf import settings
+from django.contrib.auth import BACKEND_SESSION_KEY
 from django.contrib.auth.models import AbstractBaseUser, AnonymousUser
 from django.http import HttpRequest
 
@@ -56,5 +57,7 @@ class OTPMiddleware(_OTPMiddleware):
     def _verify_user(self, request: HttpRequest, user: AnyUser):
         # call the super but replace the `is_verified` callable
         user = super()._verify_user(request, user)
+        # this is *not* persisted on the user object after authenticate
+        user.backend = request.session[BACKEND_SESSION_KEY]
         user.is_verified = functools.partial(is_verified, user)  # type: ignore
         return user
