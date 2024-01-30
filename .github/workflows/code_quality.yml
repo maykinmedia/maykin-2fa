@@ -7,11 +7,7 @@ on:
       - main
     tags:
       - '*'
-    paths:
-      - '**.py'
   pull_request:
-    paths:
-      - '**.py'
   workflow_dispatch:
 
 jobs:
