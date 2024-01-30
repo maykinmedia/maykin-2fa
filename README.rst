@@ -70,16 +70,16 @@ directory to the python path (or use ``python -m django <command>``):
     :target: https://github.com/psf/black
 
 .. |coverage| image:: https://codecov.io/gh/maykinmedia/maykin-2fa/branch/main/graph/badge.svg
-    :target: https://codecov.io/gh/maykinmedia/maykin-2fa
+    :target: https://app.codecov.io/gh/maykinmedia/maykin-2fa
     :alt: Coverage status
 
-.. |docs| image:: https://readthedocs.org/projects/maykin_2fa/badge/?version=latest
-    :target: https://maykin_2fa.readthedocs.io/en/latest/?badge=latest
+.. |docs| image:: https://readthedocs.org/projects/maykin-2fa/badge/?version=latest
+    :target: https://maykin-2fa.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. |python-versions| image:: https://img.shields.io/pypi/pyversions/maykin_2fa.svg
+.. |python-versions| image:: https://img.shields.io/pypi/pyversions/maykin-2fa.svg
 
-.. |django-versions| image:: https://img.shields.io/pypi/djversions/maykin_2fa.svg
+.. |django-versions| image:: https://img.shields.io/pypi/djversions/maykin-2fa.svg
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/maykin_2fa.svg
-    :target: https://pypi.org/project/maykin_2fa/
+.. |pypi-version| image:: https://img.shields.io/pypi/v/maykin-2fa.svg
+    :target: https://pypi.org/project/maykin-2fa/

@@ -32,6 +32,7 @@ def test_urlconf_without_webauhn_ok(settings):
 
 def test_bypass_backend_not_in_auth_backends(settings):
     settings.MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = ["__unknown__"]
+    settings.SILENCED_SYSTEM_CHECKS = ["maykin_2fa.E005"]
     stderr = StringIO()
 
     call_command("check", stderr=stderr)
