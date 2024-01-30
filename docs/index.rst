@@ -2,29 +2,32 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to maykin-2fa's documentation!
-=================================================
+==========
+maykin-2fa
+==========
 
 |build-status| |code-quality| |black| |coverage| |docs|
 
 |python-versions| |django-versions| |pypi-version|
 
-<One liner describing the project>
-
-Built on top of https://django-two-factor-auth.readthedocs.io/en/stable/index.html
+An opinionated integration of django-two-factor-auth_ in the Django admin interface.
 
 Features
 ========
 
-* ...
-* ...
+* Uses upstream django-two-factor-auth package rather than maintaining a fork
+* Ships templates in the Django admin login layout for the two-factor authentication flow
+* Multi-factor authentication is enforced for admin users, but...
+* Allows marking certain authentication backends (like Single-Sign-On solutions) as
+  exempt from this rule
+* Commitment to support (at least) maintained Django LTS versions
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    quickstart
-
+   contributing
 
 
 Indices and tables
@@ -34,6 +37,7 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+.. _django-two-factor-auth: https://django-two-factor-auth.readthedocs.io/en/stable/index.html
 
 .. |build-status| image:: https://github.com/maykinmedia/maykin-2fa/workflows/Run%20CI/badge.svg
     :alt: Build status

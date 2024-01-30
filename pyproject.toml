@@ -5,13 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "maykin_2fa"
 version = "0.1.0"
-description = "TODO"
+description = "An opinionated integration of django-two-factor-auth in the Django admin interface."
 authors = [
     {name = "Maykin Media", email = "support@maykinmedia.nl"}
 ]
 readme = "README.rst"
 license = {file = "LICENSE"}
-keywords = ["TODO"]
+keywords = ["django", "two factor", "2fa", "mfa", "multi factor auth"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Framework :: Django",
@@ -27,6 +27,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
+    # TODO: allow Django 3.2 to make upgrading our projects possible.
     "django>=4.2",
     # TODO: check if we want phonenumberslite or phonenumbers - we typically only
     # use OTP and/or hardware tokens so this may not be relevant at all.
@@ -34,10 +35,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/maykinmedia/maykin_2fa"
-Documentation = "http://maykin_2fa.readthedocs.io/en/latest/"
-"Bug Tracker" = "https://github.com/maykinmedia/maykin_2fa/issues"
-"Source Code" = "https://github.com/maykinmedia/maykin_2fa"
+Homepage = "https://github.com/maykinmedia/maykin-2fa"
+Documentation = "http://maykin-2fa.readthedocs.io/en/latest/"
+"Bug Tracker" = "https://github.com/maykinmedia/maykin-2fa/issues"
+"Source Code" = "https://github.com/maykinmedia/maykin-2fa"
 
 [project.optional-dependencies]
 tests = [

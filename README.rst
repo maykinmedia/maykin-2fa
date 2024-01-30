@@ -3,14 +3,13 @@ Maykin 2FA
 
 :Version: 0.1.0
 :Source: https://github.com/maykinmedia/maykin-2fa
-:Keywords: ``<keywords>``
-:PythonVersion: 3.10
+:Keywords: django, two factor, multi factor auth, mfa
 
 |build-status| |code-quality| |black| |coverage| |docs|
 
 |python-versions| |django-versions| |pypi-version|
 
-<One liner describing the project>
+An opinionated integration of django-two-factor-auth_ in the Django admin interface.
 
 .. contents::
 
@@ -19,44 +18,19 @@ Maykin 2FA
 Features
 ========
 
-* ...
-* ...
+* Uses upstream django-two-factor-auth package rather than maintaining a fork
+* Ships templates in the Django admin login layout for the two-factor authentication flow
+* Multi-factor authentication is enforced for admin users, but...
+* Allows marking certain authentication backends (like Single-Sign-On solutions) as
+  exempt from this rule
+* Commitment to support (at least) maintained Django LTS versions
 
-Installation
-============
+Installation, usage and contributing
+====================================
 
-Requirements
-------------
+Please see the documentation hosted on Read The Docs.
 
-* Python 3.10 or above
-* Django 4.2 or newer
-
-
-Installation and usage
-----------------------
-
-Please see the documentation hosted on ReadTheDocs or check the ``docs`` directory.
-
-
-Local development
-=================
-
-To install and develop the library locally, use::
-
-.. code-block:: bash
-
-    pip install -e .[tests,coverage,docs,release]
-
-When running management commands via ``django-admin``, make sure to add the root
-directory to the python path (or use ``python -m django <command>``):
-
-.. code-block:: bash
-
-    export PYTHONPATH=. DJANGO_SETTINGS_MODULE=testapp.settings
-    django-admin check
-    # or other commands like:
-    # django-admin makemessages -l nl
-
+.. _django-two-factor-auth: https://django-two-factor-auth.readthedocs.io/en/stable/index.html
 
 .. |build-status| image:: https://github.com/maykinmedia/maykin-2fa/workflows/Run%20CI/badge.svg
     :alt: Build status
