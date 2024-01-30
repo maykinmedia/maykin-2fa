@@ -4,5 +4,7 @@ include maykin_2fa/py.typed
 recursive-include maykin_2fa *.html
 recursive-include maykin_2fa *.txt
 recursive-include maykin_2fa *.po
+recursive-include maykin_2fa *.css
+recursive-include maykin_2fa *.js
 global-exclude __pycache__
 global-exclude *.py[co]
