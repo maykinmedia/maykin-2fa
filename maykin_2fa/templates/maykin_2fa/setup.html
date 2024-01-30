@@ -81,7 +81,7 @@
 
     {% endif %}
 
-    <form action="" method="post">
+    <form action="" method="post" novalidate>
         {% csrf_token %}
 
         {% include "maykin_2fa/includes/wizard_form.html" %}
