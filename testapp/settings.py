@@ -1,6 +1,7 @@
 from pathlib import Path
 
 DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent
 
