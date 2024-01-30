@@ -29,6 +29,7 @@ relevant. For typical Maykin usage, you'll want to:
         "django_otp.plugins.otp_static",
         "django_otp.plugins.otp_totp",
         "two_factor",
+        # if you do *not* want to use hardware tokens, you can omit the next line
         "two_factor.plugins.webauthn",
         "maykin_2fa",
         ...,
@@ -63,12 +64,15 @@ custom views:
 .. code-block:: python
 
     from maykin_2fa import monkeypatch_admin
+    from maykin_2fa.urls import urlpatterns, webauthn_urlpatterns
 
     monkeypatch_admin()
 
     urlpatterns = [
         # should come BEFORE the default admin URLs to override behaviour.
-        path("admin/", include("maykin_2fa.urls")),
+        path("admin/", include((urlpatterns, "maykin_2fa"))),
+        # if you do *not* want to use hardware tokens, you can omit the next line
+        path("admin/", include((webauthn_urlpatterns, "two_factor"))),
         path("admin/", admin.site.urls),
     ]
 
