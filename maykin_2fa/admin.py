@@ -9,5 +9,6 @@ class MFARequired(AdminSiteOTPRequired):
         Disabled to enforce usage of the custom login views.
         """
         raise ImproperlyConfigured(
-            "Ensure the maykin_2fa urls are included *before* the default admin.site.urls."
+            "Ensure the maykin_2fa urls are included *before* the default "
+            "admin.site.urls."
         )

@@ -10,10 +10,8 @@ def monkeypatch_admin():
 
         MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = AUTHENTICATION_BACKENDS
 
-    Upstream documentation: https://django-two-factor-auth.readthedocs.io/en/stable/implementing.html#admin-site
-
-    .. todo:: provide different login URLs machinery? Override the login URL to not use
-       the global settings?
+    Upstream documentation:
+    https://django-two-factor-auth.readthedocs.io/en/stable/implementing.html#admin-site
     """
     from django.contrib import admin
 

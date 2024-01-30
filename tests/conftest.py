@@ -9,10 +9,10 @@ def user(db: None, django_user_model):
     UserModel = django_user_model
     username = "johny"
     try:
-        # The default behavior of `get_by_natural_key()` is to look up by `username_field`.
-        # However the user model is free to override it with any sort of custom behavior.
-        # The Django authentication backend already assumes the lookup is by username,
-        # so we can assume so as well.
+        # The default behavior of `get_by_natural_key()` is to look up by
+        # `username_field`. However the user model is free to override it with any
+        # sort of custom behavior. The Django authentication backend already assumes
+        # the lookup is by username, so we can assume so as well.
         user = UserModel._default_manager.get_by_natural_key(username)
     except UserModel.DoesNotExist:
         user_data = {"email": "johny@example.com"}

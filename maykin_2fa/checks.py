@@ -56,7 +56,10 @@ def check_authentication_backends(app_configs, **kwargs):
         Warning(
             "MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS contains backends not present in the "
             f"AUTHENTICATION_BACKENDS setting: {', '.join(unknown_backends)}",
-            hint="Check for typos or add the backend(s) to settings.AUTHENTICATION_BACKENDS",
+            hint=(
+                "Check for typos or add the backend(s) to "
+                "settings.AUTHENTICATION_BACKENDS"
+            ),
             id="maykin_2fa.W001",
         )
     ]
@@ -78,8 +81,12 @@ def check_middleware(app_configs, **kwargs):
     if "django_otp.middleware.OTPMiddleware" in settings.MIDDLEWARE:
         errors.append(
             Error(
-                "Found `django_otp.middleware.OTPMiddleware` in the middleware - this is obsolete.",
-                hint="Remove the django_otp middleware (instead, use the maykin_2fa one).",
+                "Found `django_otp.middleware.OTPMiddleware` in the middleware - this "
+                "is obsolete.",
+                hint=(
+                    "Remove the django_otp middleware (instead, use the maykin_2fa "
+                    "one)."
+                ),
                 id="maykin_2fa.E004",
             )
         )

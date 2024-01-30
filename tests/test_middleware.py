@@ -45,7 +45,8 @@ def test_authenticated_but_not_verified(user_request, settings):
 @pytest.mark.user_request_auth_backend("testapp.backends.No2FAModelBackend")
 def test_authenticated_and_2fa_verification_bypassed(user_request, settings):
     """
-    Test that a user is "2FA-verified" when authenticated through a backend on the allow list.
+    Test that a user is "2FA-verified" when authenticated through a backend on the
+    allow list.
     """
     settings.MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = [
         "testapp.backends.No2FAModelBackend"

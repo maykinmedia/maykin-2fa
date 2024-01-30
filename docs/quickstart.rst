@@ -11,6 +11,7 @@ Install from PyPI with pip:
 
     pip install maykin-2fa
 
+This will install the WebAuthn (hardware token support) dependencies too.
 
 Settings
 ========
@@ -18,7 +19,7 @@ Settings
 As this library bundles django-two-factor-auth, the installation instructions of it are
 relevant. For typical Maykin usage, you'll want to:
 
-**Add the required ``INSTALLED_APPS`` entries**
+**Add the required INSTALLED_APPS entries**
 
 .. code-block:: python
 
@@ -49,7 +50,7 @@ you must set ``maykin_2fa.middleware.OTPMiddleware``, after the authentication m
         ...,
     ]
 
-**``urls.py``**
+**urls.py**
 
 The admin must be monkeypatched so that third party packages registering to the default
 admin are also properly 2FA-protected. Unfortunately monkeypatching seems to be the only
@@ -89,9 +90,19 @@ This is required when using the WebAuthn plugin so you can use hardware tokens.
 
 .. code-block:: python
 
-    TWO_FACTOR_WEBAUTHN_RP_NAME = "TODO - figure out what the meaning is"
+    TWO_FACTOR_WEBAUTHN_RP_NAME = "ACME"
 
-.. todo:: look into details of this, but the setting is required.
+The relying party name is used to scope a device too - make sure the name is application
+*and* intstance specific enough.
+
+See the django-two-factor-auth documentation for more WebAuthn configuration options.
+
+Additional settings you probably want to use:
+
+.. code-block:: python
+
+    # only allow hardware tokens (and Android devices on Chromium-based browsers)
+    TWO_FACTOR_WEBAUTHN_AUTHENTICATOR_ATTACHMENT = "cross-platform"
 
 **Configure allow list to skip 2FA-enforcement**
 
@@ -111,11 +122,9 @@ authentication backend, you can add them to an allowlist to bypass the applicati
         "mozilla_django_oidc_db.backends.OIDCAuthenticationBackend",
     ]
 
-.. todo:: add system check to check that each backend is in the ``AUTHENTICATION_BACKENDS`` setting.
-
 Usage
 =====
 
 Should be plug and play - there is no additional frontend stuff.
 
-.. todo:: Complete if relevant.
+You can run ``python manage.py check`` to diagnose potential problems.

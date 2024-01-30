@@ -77,10 +77,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # we take care of this, conditionally
-# TODO: maybe tapping into some login signal could be sufficient to mark the user
-# as verified
 TWO_FACTOR_PATCH_ADMIN = False
-TWO_FACTOR_WEBAUTHN_RP_NAME = "TestApp"
+
+# Enable hardware tokens like yubikey
+TWO_FACTOR_WEBAUTHN_RP_NAME = "maykin-2fa test/demo app"
+TWO_FACTOR_WEBAUTHN_AUTHENTICATOR_ATTACHMENT = "cross-platform"
 
 # Custom settings
 MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = ["testapp.backends.No2FAModelBackend"]
