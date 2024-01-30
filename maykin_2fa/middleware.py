@@ -58,6 +58,6 @@ class OTPMiddleware(_OTPMiddleware):
         # call the super but replace the `is_verified` callable
         user = super()._verify_user(request, user)
         # this is *not* persisted on the user object after authenticate
-        user.backend = request.session[BACKEND_SESSION_KEY]
+        user.backend = request.session.get(BACKEND_SESSION_KEY)
         user.is_verified = functools.partial(is_verified, user)  # type: ignore
         return user
