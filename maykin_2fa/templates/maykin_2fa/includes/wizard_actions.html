@@ -1,0 +1,27 @@
+{% load i18n %}
+<div class="actions-buttons">
+    {# Cancel link #}
+    {% if cancel_url %}
+        <a href="{{ cancel_url }}" class="button button--padded">{% trans "Cancel" %}</a>
+    {% endif %}
+
+    {# Back button #}
+    {% if wizard.steps.prev %}
+        <button
+            name="wizard_goto_step"
+            type="submit"
+            value="{{ wizard.steps.prev }}"
+            class="button button--padded"
+        >
+            {% trans "Back" %}
+        </button>
+    {% endif %}
+
+    {# Submit/next button #}
+    {% if wizard.steps.current == 'auth' %}
+        <input type="submit" value="{% translate 'Log in' %}">
+    {% else %}
+        <button type="submit" class="button button--padded">{% trans "Next" %}</button>
+    {% endif %}
+
+</div>

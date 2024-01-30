@@ -1,0 +1,36 @@
+/* Fixes to make django admin styles + django two factor auth forms work together */
+
+/* Equivalent from admin/login.css */
+.login .form-row #id_auth-username,
+.login .form-row #id_auth-password {
+    padding-block-start: 8px;
+    padding-block-end: 8px;
+    padding-inline-start: 8px;
+    padding-inline-end: 8px;
+    inline-size: 100%;
+    box-sizing: border-box;
+}
+
+.button.button--padded {
+    padding-block-start: 10px;
+    padding-block-end: 10px;
+    padding-inline-start: 15px;
+    padding-inline-end: 15px;
+}
+
+.actions-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--2fa-button-spacing, 10px);
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.totp-qr-code {
+    background-color: #fff;
+    display: block;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}

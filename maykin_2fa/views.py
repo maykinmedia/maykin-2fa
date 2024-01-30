@@ -1,6 +1,9 @@
+from django.contrib import admin
 from django.contrib.auth import logout
 from django.shortcuts import resolve_url
+from django.utils.translation import gettext_lazy as _
 
+from two_factor.forms import TOTPDeviceForm
 from two_factor.utils import default_device
 from two_factor.views import (
     BackupTokensView as _BackupTokensView,
@@ -12,7 +15,7 @@ from two_factor.views import (
 
 
 class AdminLoginView(_LoginView):
-    template_name = "two_factor/core/login.html"
+    template_name = "maykin_2fa/login.html"
     redirect_authenticated_user = False
 
     def get_redirect_url(self):
@@ -35,21 +38,70 @@ class AdminLoginView(_LoginView):
         admin_index = resolve_url("admin:index")
         return super().get_redirect_url() or admin_index
 
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+        context.update(
+            {
+                **admin.site.each_context(self.request),
+                "title": _("Log in"),
+                "subtitle": None,
+                "app_path": self.request.get_full_path(),
+            }
+        )
+        return context
+
 
 class AdminSetupView(_SetupView):
     # TODO: update to our own templates/URLs
     success_url = "maykin_2fa:setup_complete"
     qrcode_url = "maykin_2fa:qr"
-    template_name = "two_factor/core/setup.html"
+    template_name = "maykin_2fa/setup.html"
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+
+        # patch the form input type to not have numeric input controls...
+        # I checked that this does not mutate the entire class :)
+        if isinstance(form, TOTPDeviceForm):
+            form.fields["token"].widget.input_type = "text"
+
+        return form
+
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+        context.update(
+            {
+                **admin.site.each_context(self.request),
+                "title": _("Set up MFA"),
+                "subtitle": None,
+                "app_path": self.request.get_full_path(),
+                # Cancelling MFA setup is not optional.
+                "cancel_url": None,
+            }
+        )
+        return context
 
 
 class BackupTokensView(_BackupTokensView):
     success_url = "maykin_2fa:backup_tokens"
+    # TODO
     template_name = "two_factor/core/backup_tokens.html"
 
 
 class SetupCompleteView(_SetupCompleteView):
     template_name = "maykin_2fa/setup_complete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                **admin.site.each_context(self.request),
+                "title": _("MFA setup complete"),
+                "subtitle": None,
+                "app_path": self.request.get_full_path(),
+            }
+        )
+        return context
 
 
 class QRGeneratorView(_QRGeneratorView):

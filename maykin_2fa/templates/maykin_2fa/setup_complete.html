@@ -1,13 +1,44 @@
-{% extends "two_factor/_base_focus.html" %}
-{% load i18n %}
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+    <link rel="stylesheet" href="{% static "maykin_2fa/css/fixes.css" %}">
+    {{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{# Django 4.2 #}
+{% block branding %}
+<h1 id="site-name"><a href="#">{{ title }}</a></h1>
+{% endblock %}
 
 {% block content %}
-  <h1>{% block title %}{% trans "Enable Two-Factor Authentication" %}{% endblock %}</h1>
-
-  <p>{% blocktrans trimmed %}Congratulations, you've successfully enabled two-factor
+    <p>{% blocktrans trimmed %}🎉 Congratulations, you've successfully enabled two-factor
       authentication.{% endblocktrans %}</p>
 
-    <p><a href="#TODO"
-        class="btn btn-block btn-secondary">{% trans "Back to Account Security" %}</a></p>
+    <p>{% blocktrans trimmed %}
+        Next, you should generate some backup/recovery codes in case you lose your
+        device or get locked out of your account.
+    {% endblocktrans %}</p>
+
+    <div class="submit-row">
+        <div class="actions-buttons">
+            <a href="#TODO" class="button button--padded">
+                {% trans "Manage account security" %}
+            </a>
+            <a href="{% url 'admin:index' %}" class="button button--padded">
+                {% trans "View admin" %}
+            </a>
+        </div>
+    </div>
 
 {% endblock %}
