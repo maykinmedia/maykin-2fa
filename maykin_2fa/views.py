@@ -46,6 +46,10 @@ class AdminLoginView(_LoginView):
                 "title": _("Log in"),
                 "subtitle": None,
                 "app_path": self.request.get_full_path(),
+                # Set by upstream package if settings.LOGOUT_REDIRECT_URL is configured,
+                # but that would just redirect back to /admin/ for the admin interface.
+                # We unset it.
+                "cancel_url": None,
             }
         )
         return context
