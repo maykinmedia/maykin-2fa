@@ -23,6 +23,7 @@ Features
 * Multi-factor authentication is enforced for admin users, but...
 * Allows marking certain authentication backends (like Single-Sign-On solutions) as
   exempt from this rule
+* Does not get in the way of using django-two-factor-auth for your public UI
 * Commitment to support (at least) maintained Django LTS versions
 
 Installation, usage and contributing
