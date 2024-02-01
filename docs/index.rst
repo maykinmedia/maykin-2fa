@@ -27,6 +27,7 @@ Features
    :caption: Contents:
 
    quickstart
+   reference
    contributing
 
 

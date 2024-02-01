@@ -128,3 +128,6 @@ Usage
 Should be plug and play - there is no additional frontend stuff.
 
 You can run ``python manage.py check`` to diagnose potential problems.
+
+We recommend putting a link in the admin user links to the
+``maykin_2fa:account_security`` view where users can manage their backup tokens.
