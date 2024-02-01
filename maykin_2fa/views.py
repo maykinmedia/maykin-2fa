@@ -1,7 +1,12 @@
+from typing import Any
+
 from django.contrib import admin
 from django.shortcuts import resolve_url
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 
+from django_otp.decorators import otp_required
 from two_factor.forms import TOTPDeviceForm
 from two_factor.utils import default_device
 from two_factor.views import (
@@ -56,7 +61,6 @@ class AdminLoginView(_LoginView):
 
 
 class AdminSetupView(_SetupView):
-    # TODO: update to our own templates/URLs
     success_url = "maykin_2fa:setup_complete"
     qrcode_url = "maykin_2fa:qr"
     template_name = "maykin_2fa/setup.html"
@@ -86,17 +90,31 @@ class AdminSetupView(_SetupView):
         return context
 
 
+# override of the two-factor-auth, since we don't want to dictate OTP_LOGIN_URL in case
+# there is MFA support in public (non-admin) URLs.
+@method_decorator(otp_required(login_url=reverse_lazy("admin:login")), name="dispatch")
 class BackupTokensView(_BackupTokensView):
     success_url = "maykin_2fa:backup_tokens"
-    # TODO
-    template_name = "two_factor/core/backup_tokens.html"
+    template_name = "maykin_2fa/backup_tokens.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                **admin.site.each_context(self.request),
+                "title": _("MFA Backup tokens"),
+                "subtitle": None,
+                "app_path": self.request.get_full_path(),
+            }
+        )
+        return context
 
 
 class SetupCompleteView(_SetupCompleteView):
     template_name = "maykin_2fa/setup_complete.html"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context: dict[str, Any] = super().get_context_data(**kwargs)
         context.update(
             {
                 **admin.site.each_context(self.request),

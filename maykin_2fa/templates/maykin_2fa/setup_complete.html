@@ -32,11 +32,11 @@
 
     <div class="submit-row">
         <div class="actions-buttons">
-            <a href="#TODO" class="button button--padded">
-                {% trans "Manage account security" %}
+            <a href="{% url 'maykin_2fa:backup_tokens' %}" class="button button--padded">
+                {% trans "Backup tokens" %}
             </a>
             <a href="{% url 'admin:index' %}" class="button button--padded">
-                {% trans "View admin" %}
+                {% trans "Go to admin" %}
             </a>
         </div>
     </div>
