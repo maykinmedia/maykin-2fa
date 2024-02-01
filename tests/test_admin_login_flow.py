@@ -14,7 +14,7 @@ def totp_str(key):
     return str(totp(key)).zfill(totp_digits())
 
 
-def test_static_device(settings, totp_device, client: Client):
+def test_totp_device(settings, totp_device, client: Client):
     settings.MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = []
     admin_index_url = reverse("admin:index")
     admin_login_url = reverse("admin:login")
