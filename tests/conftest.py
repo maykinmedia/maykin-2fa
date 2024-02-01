@@ -16,9 +16,12 @@ def user(db: None, django_user_model):
         # the lookup is by username, so we can assume so as well.
         user = UserModel._default_manager.get_by_natural_key(username)
     except UserModel.DoesNotExist:
-        user_data = {"email": "johny@example.com"}
-        user_data["password"] = "password"
-        user_data["username"] = username
+        user_data = {
+            "email": "johny@example.com",
+            "password": "password",
+            "username": username,
+            "is_staff": True,
+        }
         user = UserModel._default_manager.create_user(**user_data)
     return user
 

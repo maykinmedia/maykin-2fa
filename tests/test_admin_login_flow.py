@@ -46,6 +46,9 @@ def test_totp_device(settings, totp_device, client: Client):
     )
     assertRedirects(token_response, admin_index_url, fetch_redirect_response=False)
 
+    admin_index = client.get(admin_index_url)
+    assert admin_index.status_code == 200
+
 
 def test_non_verified_user_is_logged_out(settings, totp_device, client: Client):
     """
