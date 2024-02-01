@@ -1,8 +1,12 @@
 from typing import Any
 
 from django.contrib import admin
-from django.shortcuts import resolve_url
+from django.shortcuts import redirect, resolve_url
+from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import never_cache
+from django.views.decorators.debug import sensitive_post_parameters
 
 from two_factor.forms import TOTPDeviceForm
 from two_factor.utils import default_device
@@ -107,6 +111,37 @@ class BackupTokensView(_BackupTokensView):
                 "app_path": self.request.get_full_path(),
             }
         )
+        return context
+
+
+class RecoveryTokenView(AdminLoginView):
+    """
+    Custom view/template to handle the recovery token flow.
+    """
+
+    template_name = "maykin_2fa/recovery_token.html"
+
+    def get_prefix(self, request, *args, **kwargs):
+        # Deliberately share the same prefix as the AdminLoginView so we can grab the
+        # user from the wizard storage
+        return "admin_login_view"
+
+    def get(self, *args, **kwargs):
+        # Do not reset, instead set the current step to the recovery step.
+        if not self.get_user():
+            return redirect(reverse("admin:login"))
+        self.storage.current_step = self.BACKUP_STEP
+        return self.render(self.get_form())
+
+    def post(self, *args, **kwargs):
+        # anonymous users cannot enter recovery flows
+        if not self.get_user():
+            return redirect(reverse("admin:login"))
+        return super().post(*args, **kwargs)
+
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form, **kwargs)
+        context["title"] = _("Use recovery token")
         return context
 
 

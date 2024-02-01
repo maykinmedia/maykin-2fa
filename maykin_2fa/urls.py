@@ -6,6 +6,7 @@ from .views import (
     AdminSetupView,
     BackupTokensView,
     QRGeneratorView,
+    RecoveryTokenView,
     SetupCompleteView,
 )
 
@@ -17,6 +18,7 @@ urlpatterns = [
     path("mfa/qrcode/", QRGeneratorView.as_view(), name="qr"),
     path("mfa/setup/complete/", SetupCompleteView.as_view(), name="setup_complete"),
     path("mfa/backup/tokens/", BackupTokensView.as_view(), name="backup_tokens"),
+    path("mfa/recovery/", RecoveryTokenView.as_view(), name="recovery"),
     # 'profile'
     path("mfa/", AccountSecurityView.as_view(), name="account_security"),
 ]

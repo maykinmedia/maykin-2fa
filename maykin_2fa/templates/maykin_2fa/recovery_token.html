@@ -1,0 +1,27 @@
+{% extends "maykin_2fa/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <form action="" method="post" novalidate class="m2fa-recovery-form">
+        {% csrf_token %}
+
+        <p>{% blocktrans trimmed %}
+            If you are unable to access your device, enter one of your
+            recovery codes to verify your identity.
+        {% endblocktrans %}</p>
+
+        {% include "maykin_2fa/includes/wizard_form.html" %}
+
+        <div class="submit-row">
+            <button type="submit" class="button button--padded">
+                {% trans "Verify" %}
+            </button>
+        </div>
+
+    </form>
+
+    <div class="m2fa-nav-links">
+        {% trans "or" %}
+        <a href="{% url 'admin:login' %}">{% trans "Log in with another account" %}</a>
+    </div>
+{% endblock %}

@@ -94,6 +94,23 @@
         {# Can be used by downstream projects to add SSO options etc. #}
         {% block extra_login_options %}{% endblock %}
 
+        {% block recovery_options %}
+            {% if backup_tokens %}
+                <div class="m2fa-recovery-options">
+                    <p>
+                        <strong>{% trans "Unable to verify with your device?" %}</strong>
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="{% url 'maykin_2fa:recovery' %}">
+                                {% trans "Use a recovery token" %}
+                            </a>
+                        </li>
+                        {% block extra_recovery_options %}{% endblock extra_recovery_options %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endblock %}
     </div>
 
 {% endblock %}

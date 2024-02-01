@@ -51,3 +51,9 @@
         padding-block-end: 0.5em;
     }
 }
+
+.m2fa-recovery-options {
+    margin-block-start: 1em;
+    padding-block-start: 1em;
+    border-block-start: solid 1px var(--hairline-color);
+}
