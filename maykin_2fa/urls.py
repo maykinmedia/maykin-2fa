@@ -1,6 +1,7 @@
 from django.urls import include, path
 
 from .views import (
+    AccountSecurityView,
     AdminLoginView,
     AdminSetupView,
     BackupTokensView,
@@ -16,6 +17,8 @@ urlpatterns = [
     path("mfa/qrcode/", QRGeneratorView.as_view(), name="qr"),
     path("mfa/setup/complete/", SetupCompleteView.as_view(), name="setup_complete"),
     path("mfa/backup/tokens/", BackupTokensView.as_view(), name="backup_tokens"),
+    # 'profile'
+    path("mfa/", AccountSecurityView.as_view(), name="account_security"),
 ]
 
 webauthn_urlpatterns = [

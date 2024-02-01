@@ -2,20 +2,20 @@ from typing import Any
 
 from django.contrib import admin
 from django.shortcuts import resolve_url
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 
-from django_otp.decorators import otp_required
 from two_factor.forms import TOTPDeviceForm
 from two_factor.utils import default_device
 from two_factor.views import (
     BackupTokensView as _BackupTokensView,
     LoginView as _LoginView,
+    ProfileView as _ProfileView,
     QRGeneratorView as _QRGeneratorView,
     SetupCompleteView as _SetupCompleteView,
     SetupView as _SetupView,
 )
+
+from .decorators import admin_mfa_required
 
 
 class AdminLoginView(_LoginView):
@@ -92,7 +92,7 @@ class AdminSetupView(_SetupView):
 
 # override of the two-factor-auth, since we don't want to dictate OTP_LOGIN_URL in case
 # there is MFA support in public (non-admin) URLs.
-@method_decorator(otp_required(login_url=reverse_lazy("admin:login")), name="dispatch")
+@admin_mfa_required()
 class BackupTokensView(_BackupTokensView):
     success_url = "maykin_2fa:backup_tokens"
     template_name = "maykin_2fa/backup_tokens.html"
@@ -128,3 +128,22 @@ class SetupCompleteView(_SetupCompleteView):
 
 class QRGeneratorView(_QRGeneratorView):
     pass
+
+
+# override of the two-factor-auth, since we don't want to dictate OTP_LOGIN_URL in case
+# there is MFA support in public (non-admin) URLs.
+@admin_mfa_required()
+class AccountSecurityView(_ProfileView):
+    template_name = "maykin_2fa/account_security.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                **admin.site.each_context(self.request),
+                "title": _("Account security"),
+                "subtitle": None,
+                "app_path": self.request.get_full_path(),
+            }
+        )
+        return context

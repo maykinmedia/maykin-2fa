@@ -1,0 +1,22 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+    <link rel="stylesheet" href="{% static "maykin_2fa/css/fixes.css" %}">
+    {{ form.media }}
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+
+{# Django 4.2 #}
+{% block branding %}
+<h1 id="site-name"><a href="#">{{ title }}</a></h1>
+{% endblock %}

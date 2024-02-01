@@ -1,44 +1,26 @@
-{% extends "admin/base_site.html" %}
-{% load static i18n %}
-
-{% block extrastyle %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static "admin/css/login.css" %}">
-    <link rel="stylesheet" href="{% static "maykin_2fa/css/fixes.css" %}">
-    {{ form.media }}
-{% endblock %}
-
-{% block bodyclass %}{{ block.super }} login{% endblock %}
-
-{% block usertools %}{% endblock %}
-{% block nav-global %}{% endblock %}
-{% block nav-sidebar %}{% endblock %}
-{% block content_title %}{% endblock %}
-{% block nav-breadcrumbs %}{% endblock %}
-
-{# Django 4.2 #}
-{% block branding %}
-<h1 id="site-name"><a href="#">{{ title }}</a></h1>
-{% endblock %}
+{% extends "maykin_2fa/base.html" %}
+{% load i18n %}
 
 {% block content %}
     <p>{% blocktrans trimmed %}🎉 Congratulations, you've successfully enabled two-factor
       authentication.{% endblocktrans %}</p>
 
     <p>{% blocktrans trimmed %}
-        Next, you should generate some backup/recovery codes in case you lose your
+        Next, you should generate some backup/recovery tokens in case you lose your
         device or get locked out of your account.
     {% endblocktrans %}</p>
 
     <div class="submit-row">
         <div class="actions-buttons">
             <a href="{% url 'maykin_2fa:backup_tokens' %}" class="button button--padded">
-                {% trans "Backup tokens" %}
-            </a>
-            <a href="{% url 'admin:index' %}" class="button button--padded">
-                {% trans "Go to admin" %}
+                {% trans "Manage backup tokens" %}
             </a>
         </div>
+
+    </div>
+
+    <div class="m2fa-nav-links">
+        <a href="{% url 'admin:index' %}">{% trans "Go to admin" %}</a>
     </div>
 
 {% endblock %}

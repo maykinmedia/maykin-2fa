@@ -1,0 +1,59 @@
+{% extends "maykin_2fa/base.html" %}
+{% load i18n two_factor_tags %}
+
+{% block content %}
+    {# Users *may* end up here if they came in through a non-mfa required authentication backend. #}
+    {% if default_device %}
+
+        <h2>{% trans "Your second factor is:" %}</h2>
+
+        <p>{{ default_device|as_action }}</p>
+
+        {# phone methods block from upstream is omitted as we don't support that at this stage #}
+
+        <h2>{% trans "Backup tokens" %}</h2>
+        <p>
+            {% blocktrans trimmed %}
+                If you don't have any device with you, you can access
+                your account using backup tokens.
+            {% endblocktrans %}
+            {% blocktrans trimmed count counter=backup_tokens %}
+                You have only one backup token remaining.
+            {% plural %}
+                You have {{ counter }} backup tokens remaining.
+            {% endblocktrans %}
+        </p>
+
+        <p>
+            <a href="{% url 'maykin_2fa:backup_tokens' %}">
+                {% if backup_tokens %}
+                    {% trans "Manage backup tokens" %}
+                {% else %}
+                    {% trans "Generate backup tokens" %}
+                {% endif %}
+            </a>
+        </p>
+
+        <h2>{% trans "Disabling multi-factor authentication" %}</h2>
+        <p>
+            {% blocktrans trimmed %}
+                Multi-factor authentication is mandatory for the admin interface. You
+                cannot disable it.
+            {% endblocktrans %}
+        </p>
+
+    {% else %}
+
+        <p>
+            {% blocktrans trimmed %}
+                Currently you don't have any multi-factor authentication enabled on your
+                account. This likely means that you are using a single-sign-on solution.
+            {% endblocktrans %}
+        </p>
+
+    {% endif %}
+
+    <div class="m2fa-nav-links">
+        <a href="{% url 'admin:index' %}">{% trans "Go to admin" %}</a>
+    </div>
+{% endblock %}

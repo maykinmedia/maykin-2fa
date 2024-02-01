@@ -39,3 +39,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+.m2fa-nav-links {
+    padding-block-start: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    a {
+        padding-block-start: 0.5em;
+        padding-block-end: 0.5em;
+    }
+}
