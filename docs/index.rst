@@ -30,6 +30,7 @@ Features
    quickstart
    reference
    contributing
+   changelog
 
 
 Indices and tables
