@@ -28,7 +28,7 @@ classifiers = [
 requires-python = ">=3.10"
 dependencies = [
     # TODO: allow Django 3.2 to make upgrading our projects possible.
-    "django>=4.2",
+    "django>=3.2",
     # TODO: check if we want phonenumberslite or phonenumbers - we typically only
     # use OTP and/or hardware tokens so this may not be relevant at all.
     "django-two-factor-auth[phonenumberslite,webauthn]",
@@ -85,6 +85,12 @@ files = [
     {filename = "pyproject.toml"},
     {filename = "README.rst"},
     {filename = "docs/conf.py"},
+]
+
+[tool.coverage.run]
+branch = true
+source = [
+    "maykin_2fa"
 ]
 
 [tool.coverage.report]
