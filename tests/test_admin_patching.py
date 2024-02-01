@@ -57,3 +57,17 @@ def test_wrong_url_order_leads_to_exception_on_admin_login(patched_admin, client
 def test_system_check_admin_patching(unpatched_admin):
     with pytest.raises(SystemCheckError, match="(maykin_2fa.E005)"):
         call_command("check")
+
+
+def test_patched_admin_blocks_non_verified_users(patched_admin, admin_client, settings):
+    settings.MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = []
+    response = admin_client.get(reverse("admin:auth_user_changelist"))
+
+    assert response.status_code == 302
+
+
+def test_patched_admin_allows_verified_users(patched_admin, admin_client, settings):
+    settings.MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = settings.AUTHENTICATION_BACKENDS
+    response = admin_client.get(reverse("admin:auth_user_changelist"))
+
+    assert response.status_code == 200
