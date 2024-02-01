@@ -1,4 +1,5 @@
 import pytest
+from django_otp.plugins.otp_static.models import StaticToken
 from django_otp.util import random_hex
 
 
@@ -34,3 +35,16 @@ def totp_device(user):
     # See https://github.com/jazzband/django-two-factor-auth/blob/
     # 3c4888c79e37dc4c137bbccafb5680c1e4b74eaa/tests/test_views_login.py#L225
     return user.totpdevice_set.create(name="default", key=random_hex())
+
+
+@pytest.fixture
+def recovery_codes(user) -> list[str]:
+    """
+    Ensure (backup) recovery codes are generated for the user fixture.
+    """
+    device = user.staticdevice_set.create(name="backup")
+    tokens = [
+        StaticToken(device=device, token=StaticToken.random_token()) for _ in range(5)
+    ]
+    StaticToken.objects.bulk_create(tokens)
+    return [token.token for token in tokens]

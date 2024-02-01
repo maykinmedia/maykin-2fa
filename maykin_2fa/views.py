@@ -3,10 +3,7 @@ from typing import Any
 from django.contrib import admin
 from django.shortcuts import redirect, resolve_url
 from django.urls import reverse
-from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.cache import never_cache
-from django.views.decorators.debug import sensitive_post_parameters
 
 from two_factor.forms import TOTPDeviceForm
 from two_factor.utils import default_device
