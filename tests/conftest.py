@@ -1,4 +1,5 @@
 import pytest
+from django_otp.util import random_hex
 
 
 @pytest.fixture
@@ -20,3 +21,13 @@ def user(db: None, django_user_model):
         user_data["username"] = username
         user = UserModel._default_manager.create_user(**user_data)
     return user
+
+
+@pytest.fixture
+def totp_device(user):
+    """
+    Set up a TOTP generator device for the user fixture.
+    """
+    # See https://github.com/jazzband/django-two-factor-auth/blob/
+    # 3c4888c79e37dc4c137bbccafb5680c1e4b74eaa/tests/test_views_login.py#L225
+    return user.totpdevice_set.create(name="default", key=random_hex())

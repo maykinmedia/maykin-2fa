@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth import logout
 from django.shortcuts import resolve_url
 from django.utils.translation import gettext_lazy as _
 
@@ -24,16 +23,17 @@ class AdminLoginView(_LoginView):
         user = self.request.user
 
         if user.is_authenticated and not user.is_verified():
-            # if no device is set up, redirect to the setup.
+            # no device is expected to be set up:
+            # 1. if there is a device, the wizard takes you to the second factor step
+            # 2. if there is no device, we now make the user set one up.
+            #
+            # Note that ``get_redirect_url`` should only be invoked at the end of the
+            # login process.
             device = default_device(user)
-            if device is None:
-                return resolve_url("maykin_2fa:setup")
-
-            # a device is configured, but wasn't used - this may have been an aborted
-            # authentication process. Log the user out and have the go through the login
-            # flow again.
-            logout(self.request)
-            return resolve_url("maykin_2fa:login")
+            assert (
+                device is None
+            ), "Unexpectedly found an existing device for a non-verified user!"
+            return resolve_url("maykin_2fa:setup")
 
         admin_index = resolve_url("admin:index")
         return super().get_redirect_url() or admin_index

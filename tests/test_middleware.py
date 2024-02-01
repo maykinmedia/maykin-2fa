@@ -15,10 +15,10 @@ def user_request(request, client, rf, user) -> HttpRequest:
 
     # create a standalone request instance, by copying over the session and mimicking
     # the `django.contrib.auth.middleware.AuthenticationMiddleware` middleware
-    request = rf.get("/irrelevant")
-    request.session = client.session
-    request.user = SimpleLazyObject(lambda: user)
-    return request
+    django_request = rf.get("/irrelevant")
+    django_request.session = client.session
+    django_request.user = SimpleLazyObject(lambda: user)
+    return django_request
 
 
 @pytest.mark.user_request_auth_backend("django.contrib.auth.backends.ModelBackend")
