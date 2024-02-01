@@ -13,7 +13,7 @@ readme = "README.rst"
 license = {file = "LICENSE"}
 keywords = ["django", "two factor", "2fa", "mfa", "multi factor auth"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Framework :: Django",
     "Framework :: Django :: 4.2",
     "Intended Audience :: Developers",
