@@ -1,7 +1,7 @@
 Maykin 2FA
 ==========
 
-:Version: 0.2.1
+:Version: 0.2.2
 :Source: https://github.com/maykinmedia/maykin-2fa
 :Keywords: django, two factor, multi factor auth, mfa
 

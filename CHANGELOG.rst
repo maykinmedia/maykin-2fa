@@ -2,6 +2,13 @@
 Changelog
 =========
 
+0.2.2 (2024-02-02)
+==================
+
+Fixed packaging mistake
+
+* Ensure the .mo files are bundled in the package
+
 0.2.1 (2024-02-02)
 ==================
 
