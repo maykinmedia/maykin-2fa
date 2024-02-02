@@ -74,3 +74,9 @@ def test_middleware_missing(settings):
 def test_okay_configuration():
     # testapp.settings is a valid configuration
     call_command("check", stdout=StringIO())
+
+
+@pytest.mark.urls("tests.bad_urls.invalid")
+def test_bad_urlconf():
+    with pytest.raises(SystemCheckError, match="(urls.E004)"):
+        call_command("check")

@@ -2,6 +2,7 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.core.checks import Error, Warning, register
+from django.core.checks.urls import check_url_config
 from django.urls import NoReverseMatch, reverse
 
 from .admin import MFARequired
@@ -9,6 +10,9 @@ from .admin import MFARequired
 
 @register()
 def check_urlconf(app_configs, **kwargs):
+    if check_url_config(app_configs, **kwargs):
+        return []
+
     errors = []
     try:
         reverse("maykin_2fa:login")
@@ -96,6 +100,8 @@ def check_middleware(app_configs, **kwargs):
 
 @register()
 def check_admin_patched(app_configs, **kwargs):
+    if check_url_config(app_configs, **kwargs):
+        return []
     cls = admin.site.__class__
     if cls is MFARequired or issubclass(cls, MFARequired):
         return []
