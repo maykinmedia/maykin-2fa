@@ -2,6 +2,14 @@
 Changelog
 =========
 
+0.2.1 (2024-02-02)
+==================
+
+Patch release after upgrading some projects
+
+* Fixed system check dependency on URLconf being loaded
+* Added/modified Dutch translations
+
 0.2.0 (2024-02-01)
 ==================
 

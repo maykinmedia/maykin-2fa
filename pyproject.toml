@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "maykin_2fa"
-version = "0.2.0"
+version = "0.2.1"
 description = "An opinionated integration of django-two-factor-auth in the Django admin interface."
 authors = [
     {name = "Maykin Media", email = "support@maykinmedia.nl"}
