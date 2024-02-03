@@ -70,7 +70,15 @@ Django-hijack integration
 =========================
 
 Maykin 2FA works out of the box with django-hijack. It subscribes to the
-``hijack_started`` and ``hijack_ended`` signals to install a temporary Hijack TOTP
+``hijack_started`` and ``hijack_ended`` signals to install a temporary hijack TOTP
 device.
 
-.. todo:: add permission check helper here for ``settings.HIJACK_PERMISSION_CHECK``
+If you don't specify the setting ``HIJACK_PERMISSION_CHECK`` yet, you should update
+this to:
+
+.. code-block:: python
+
+    HIJACK_PERMISSION_CHECK = "maykin_2fa.hijack.superusers_only_and_is_verified"
+
+Alternatively, if you have a custom check, make sure to also check
+``hijacker.is_verified()``.

@@ -134,3 +134,24 @@ def test_hijack_staff_user_with_bypass_enabled(admin_user, client: Client, setti
     admin_index = client.get(admin_index_url)
     assert admin_index.status_code == 200
     assert admin_index.context["request"].user == admin_user
+
+
+def test_custom_permission_check(settings, admin_user, client: Client):
+    settings.HIJACK_PERMISSION_CHECK = (
+        "maykin_2fa.hijack.superusers_only_and_is_verified"
+    )
+    # set up other staff user
+    other_user = User.objects.create_user(
+        username="other",
+        password="password",
+        is_staff=True,
+        is_superuser=False,
+    )
+    client.login(username="admin", password="password")
+
+    # do the hijack
+    response = client.post(
+        reverse("hijack:acquire"),
+        data={"user_pk": other_user.pk},
+    )
+    assert response.status_code == 403
