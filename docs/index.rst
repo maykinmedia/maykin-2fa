@@ -28,6 +28,7 @@ Features
    :caption: Contents:
 
    quickstart
+   testing
    reference
    contributing
    changelog
