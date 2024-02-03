@@ -65,3 +65,10 @@ Test helpers
 .. automodule:: maykin_2fa.test
    :members:
 
+
+Django-hijack integration
+=========================
+
+Maykin 2FA works out of the box with django-hijack. It subscribes to the
+``hijack_started`` and ``hijack_ended`` signals to install a temporary Hijack TOTP
+device.
