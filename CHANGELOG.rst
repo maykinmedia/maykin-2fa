@@ -2,6 +2,15 @@
 Changelog
 =========
 
+1.0.0 (2024-02-05)
+==================
+
+The library is now considered feature complete.
+
+* [#9] Added built-in support for djano-hijack
+* Added more test helpers
+* Confirmed support for Django 3.2 to allow migrating existing projects
+
 0.2.2 (2024-02-02)
 ==================
 
