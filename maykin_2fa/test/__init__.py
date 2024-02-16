@@ -19,9 +19,9 @@ DJANGO_WEBTEST_BACKENDS = (
 )
 
 
-def disable_admin_mfa():
+def disable_mfa():
     """
-    Test helper to disable MFA requirements in the admin.
+    Test helper to disable MFA requirements, particularly useful in the admin.
 
     Based on :func:`django.test.override_settings`, so you can use it as a decorator
     or context manager.
@@ -29,6 +29,18 @@ def disable_admin_mfa():
     django_backends = settings.AUTHENTICATION_BACKENDS
     all_backends = django_backends + list(DJANGO_WEBTEST_BACKENDS)
     return override_settings(MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS=all_backends)
+
+
+disable_admin_mfa = disable_mfa
+"""
+Alias for disable_mfa.
+
+This is exactly the the same as :func:`disable_mfa`, because the ``user.is_verified``
+check is added via middleware which applies to the entire project and not just
+the admin. However, this alias exists because maykin-2fa deliberately scopes
+itself to managing access to the admin interface. Use the name that best conveys
+your intent in your test cases.
+"""
 
 
 def _totp_str(key: bytes):
