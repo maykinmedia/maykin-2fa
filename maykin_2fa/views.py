@@ -46,6 +46,11 @@ class AdminLoginView(_LoginView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
+
+        # upstream doesn't provide a value for the "next" context variable at all
+        redirect_to = self.request.GET.get(self.redirect_field_name, "")
+        context.setdefault("next", redirect_to)
+
         context.update(
             {
                 **admin.site.each_context(self.request),

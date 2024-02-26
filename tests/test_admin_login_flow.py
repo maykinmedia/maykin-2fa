@@ -76,3 +76,24 @@ def test_non_verified_user_is_logged_out(settings, totp_device, client: Client):
     assert login_response.wsgi_request.path == admin_login_url
     assertTemplateUsed(login_response, "maykin_2fa/login.html")
     assertContains(login_response, "Token")
+
+
+def test_mfa_disabled_respects_next_parameter(settings, client: Client, admin_user):
+    settings.MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = settings.AUTHENTICATION_BACKENDS
+    admin_login_url = reverse("admin:login")
+
+    login_page = client.get(admin_login_url, {"next": "/admin/auth/user/"})
+
+    assert login_page.context["next"] == "/admin/auth/user/"
+
+    login_response = client.post(
+        admin_login_url,
+        data={
+            "admin_login_view-current_step": "auth",
+            "auth-username": admin_user.username,
+            "auth-password": "password",
+            "next": "/admin/auth/user/",
+        },
+        follow=True,
+    )
+    assert login_response.wsgi_request.path == "/admin/auth/user/"
