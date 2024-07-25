@@ -2,6 +2,13 @@
 Changelog
 =========
 
+1.0.1 (2024-07-25)
+==================
+
+Minor bugfix
+
+* [#16] Fixed redirect_to feature in the admin login
+
 1.0.0 (2024-02-05)
 ==================
 
