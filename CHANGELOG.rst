@@ -2,6 +2,13 @@
 Changelog
 =========
 
+1.0.2 (2025-01-16)
+==================
+
+Minor fix
+
+* Add possibility to override the error message in the login template shown when the user is already authenticated.
+
 1.0.1 (2024-07-25)
 ==================
 
