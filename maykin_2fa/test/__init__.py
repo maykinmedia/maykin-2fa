@@ -19,9 +19,9 @@ DJANGO_WEBTEST_BACKENDS = (
 )
 
 
-def disable_admin_mfa():
+def disable_mfa():
     """
-    Test helper to disable MFA requirements in the admin.
+    Test helper to disable MFA requirements.
 
     Based on :func:`django.test.override_settings`, so you can use it as a decorator
     or context manager.
@@ -50,3 +50,6 @@ def get_valid_totp_token(user: AbstractBaseUser) -> str:
     if not isinstance(device, TOTPDevice):
         raise ValueError("The user's default device is not a TOTPDevice.")
     return _totp_str(device.bin_key)
+
+
+disable_admin_mfa = disable_mfa
