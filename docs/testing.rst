@@ -15,7 +15,7 @@ Built in helpers
 Disabling MFA checks
 --------------------
 
-You can use the :func:`maykin_2fa.test.disable_admin_mfa` decorator/context manager to
+You can use the :func:`maykin_2fa.test.disable_mfa` decorator/context manager to
 automatically mark an authenticated user in the admin as verified. This uses the
 ``MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS`` setting under the hood.
 
@@ -27,10 +27,10 @@ Example:
 .. code-block:: python
 
     from django_webtest import WebTest
-    from maykin_2fa.test import disable_admin_mfa
+    from maykin_2fa.test import disable_mfa
 
 
-    @disable_admin_mfa()
+    @disable_mfa()
     class MyAdminTests(WebTest):
 
         def test_admin_index(self):
