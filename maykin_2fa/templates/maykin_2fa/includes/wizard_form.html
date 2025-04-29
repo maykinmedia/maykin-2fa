@@ -1,9 +1,20 @@
 {{ wizard.management_form }}
 
+{% if wizard.form.non_field_errors %}
+     <div class="error-messages">
+        {% for error in wizard.form.non_field_errors %}
+            <p class="errornote">{{ error }}</p>
+        {% endfor %}
+     </div>
+{% endif %}
+
 {% for field in wizard.form %}
     <div class="form-row {% if field.errors %}form-row--error{% endif %} {% if wizard.steps.current == 'generator' %} centered-text {% endif %}">
-        {{ field.errors }}
+        {% for error in field.errors %}
+            <p class="errornote">{{ error }}</p>
+        {% endfor %}
         <label class="required" for="{{ field.id_for_label }}">{{ field.label }}</label>
         {{ field }}
     </div>
 {% endfor %}
+
