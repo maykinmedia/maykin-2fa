@@ -59,3 +59,35 @@ def test_recovery_token_authenticated_user(
         },
     )
     assertRedirects(response, reverse("admin:index"))
+
+
+@pytest.mark.django_db
+def test_recovery_token_invalid_code_shows_error(client, user, totp_device):
+    recovery_url = reverse("maykin_2fa:recovery")
+
+    client.post(
+        reverse("admin:login"),
+        data={
+            "admin_login_view-current_step": "auth",
+            "auth-username": "johny",
+            "auth-password": "password",
+        },
+    )
+
+    response = client.get(recovery_url)
+    assert response.status_code == 200
+    assertTemplateUsed(response, "maykin_2fa/recovery_token.html")
+
+    response = client.post(
+        recovery_url,
+        data={
+            "admin_login_view-current_step": "backup",
+            "backup-otp_token": "INVALID-CODE",
+        },
+    )
+
+    assert response.status_code == 200
+    assertTemplateUsed(response, "maykin_2fa/recovery_token.html")
+    assertContains(
+        response, "Invalid token. Please make sure you have entered it correctly."
+    )
