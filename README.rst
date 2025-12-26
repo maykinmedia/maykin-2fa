@@ -5,7 +5,7 @@ Maykin 2FA
 :Source: https://github.com/maykinmedia/maykin-2fa
 :Keywords: django, two factor, multi factor auth, mfa
 
-|build-status| |code-quality| |black| |coverage| |docs|
+|build-status| |code-quality| |ruff| |coverage| |docs|
 
 |python-versions| |django-versions| |pypi-version|
 
@@ -42,8 +42,9 @@ Please see the documentation hosted on Read The Docs.
      :alt: Code quality checks
      :target: https://github.com/maykinmedia/maykin-2fa/actions?query=workflow%3A%22Code+quality+checks%22
 
-.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/psf/black
+.. |ruff| image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Ruff
 
 .. |coverage| image:: https://codecov.io/gh/maykinmedia/maykin-2fa/branch/main/graph/badge.svg
     :target: https://app.codecov.io/gh/maykinmedia/maykin-2fa

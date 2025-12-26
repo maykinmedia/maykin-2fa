@@ -36,9 +36,9 @@ class AdminLoginView(_LoginView):
             # Note that ``get_redirect_url`` should only be invoked at the end of the
             # login process.
             device = default_device(user)
-            assert (
-                device is None
-            ), "Unexpectedly found an existing device for a non-verified user!"
+            assert device is None, (
+                "Unexpectedly found an existing device for a non-verified user!"
+            )
             return resolve_url("maykin_2fa:setup")
 
         admin_index = resolve_url("admin:index")

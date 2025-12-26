@@ -48,9 +48,7 @@ tests = [
     "pytest-django",
     "pytest-cov",
     "tox",
-    "isort",
-    "black",
-    "flake8",
+    "ruff",
 ]
 docs = [
     "sphinx",
@@ -63,13 +61,6 @@ release = [
 [tool.setuptools.packages.find]
 include = ["maykin_2fa*"]
 namespaces = false
-
-[tool.isort]
-profile = "black"
-combine_as_imports = true
-known_django = "django"
-known_first_party="maykin_2fa"
-sections=["FUTURE", "STDLIB", "DJANGO", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -100,5 +91,32 @@ exclude_also = [
     "@(abc\\.)?abstractmethod",
     "raise NotImplementedError",
     "\\.\\.\\.",
-    "pass",
+    "\\bpass$",
 ]
+
+[tool.ruff.lint]
+extend-select = [
+    "UP",  # pyupgrade
+    "DJ",  # django
+    "LOG", # logging
+    "G",
+    "I",   # isort
+    "E",   # pycodestyle
+    "F",   # pyflakes
+    "PERF",# perflint
+    "B",   # flake8-bugbear
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+section-order = [
+    "future",
+    "standard-library",
+    "django",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.isort.sections]
+"django" = ["django"]
