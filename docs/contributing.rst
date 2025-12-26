@@ -63,14 +63,10 @@ Alternatively, you can use ``python -m django <command>``.
 Code contributions
 ==================
 
-Code formatting is checked in the CI pipeline. We make use of the following tools:
+Code formatting is checked in the CI pipeline. We make use of Ruff.
 
-* black
-* isort
-* flake8
-
-You are encouraged to set up a pre-commit hook to apply these, but ultimately this is
-your choice!
+You are encouraged to set up a pre-commit hook to apply the checks, but ultimately this
+is your choice!
 
 Commit messages
 ===============

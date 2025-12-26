@@ -10,7 +10,6 @@ from maykin_2fa.test import disable_admin_mfa, get_valid_totp_token
 
 
 class TestHelperTests(TestCase):
-
     def test_mfa_disabling(self):
         User.objects.create_user(username="johny", password="password", is_staff=True)
         self.client.login(username="johny", password="password")

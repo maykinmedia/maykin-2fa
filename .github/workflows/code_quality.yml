@@ -16,16 +16,21 @@ jobs:
   linting:
     name: Code-quality checks
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        toxenv: [isort, black, flake8, docs]
+        toxenv:
+          - ruff
+          - docs
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.12'
       - name: Install dependencies
         run: pip install tox
       - run: tox
         env:
           TOXENV: ${{ matrix.toxenv }}
+          FORCE_COLOR: "1"
