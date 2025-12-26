@@ -56,7 +56,7 @@ Indices and tables
     :target: https://github.com/astral-sh/ruff
     :alt: Ruff
 
-.. |coverage| image:: https://codecov.io/gh/maykinmedia/maykin-2fa/branch/master/graph/badge.svg
+.. |coverage| image:: https://codecov.io/gh/maykinmedia/maykin-2fa/branch/main/graph/badge.svg
     :target: https://app.codecov.io/gh/maykinmedia/maykin-2fa
     :alt: Coverage status
 

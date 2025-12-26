@@ -10,6 +10,14 @@ def monkeypatch_admin():
 
         MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = AUTHENTICATION_BACKENDS
 
+    .. note:: Users who log in with username + password in the admin **and** have any
+       MFA-device configured on their account will still get the MFA prompt, even if
+       the authentication backend is present in the bypass list.
+
+       This may seem unintuitive, however, it would be unexpected for the users who went
+       through the effort of securing their account that this is now suddenly no longer
+       active.
+
     Upstream documentation:
     https://django-two-factor-auth.readthedocs.io/en/stable/implementing.html#admin-site
     """

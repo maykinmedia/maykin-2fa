@@ -106,7 +106,7 @@ Additional settings you probably want to use:
 
 **Configure allow list to skip 2FA-enforcement**
 
-By default, this package ensures the admin enforces 2FA. However, when logging it
+By default, this package ensures the admin enforces 2FA. However, when logging in
 through OpenID Connect or other Single-Sign-On solutions, this can lead to double 2FA
 flows. Since these alternative login flows typically come with a custom Django
 authentication backend, you can add them to an allowlist to bypass the application MFA.
@@ -121,6 +121,14 @@ authentication backend, you can add them to an allowlist to bypass the applicati
     MAYKIN_2FA_ALLOW_MFA_BYPASS_BACKENDS = [
         "mozilla_django_oidc_db.backends.OIDCAuthenticationBackend",
     ]
+
+.. tip:: Users who log in with username + password in the admin **and** have any
+   MFA-device configured on their account will still get the MFA prompt, even if
+   the authentication backend is present in the bypass list.
+
+   This may seem unintuitive, however, it would be unexpected for the users who went
+   through the effort of securing their account that this is now suddenly no longer
+   active.
 
 Usage
 =====
