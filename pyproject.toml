@@ -1,37 +1,36 @@
 [build-system]
-requires = ["setuptools>=61.0.0"]
+requires = ["setuptools>=77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "maykin_2fa"
+name = "maykin-2fa"
 version = "1.0.2"
 description = "An opinionated integration of django-two-factor-auth in the Django admin interface."
 authors = [
     {name = "Maykin Media", email = "support@maykinmedia.nl"}
 ]
 readme = "README.rst"
-license = {file = "LICENSE"}
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = ["django", "two factor", "2fa", "mfa", "multi factor auth"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: Django",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
     "Intended Audience :: Developers",
     "Operating System :: Unix",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "django>=4.2",
-    # TODO: check if we want phonenumberslite or phonenumbers - we typically only
-    # use OTP and/or hardware tokens so this may not be relevant at all.
     "django-two-factor-auth[webauthn]>=1.18.1",
 ]
 

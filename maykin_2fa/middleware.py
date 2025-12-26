@@ -1,5 +1,4 @@
 import functools
-from typing import TypeAlias
 
 from django.conf import settings
 from django.contrib.auth import BACKEND_SESSION_KEY
@@ -13,7 +12,7 @@ from django_otp.middleware import (
 
 # probably a TypeVar(bound=...) makes more sense but we don't allow using generics here,
 # so let's cover the most ground using a simple union.
-AnyUser: TypeAlias = AbstractBaseUser | AnonymousUser
+type AnyUser = AbstractBaseUser | AnonymousUser
 
 
 def is_verified(user: AbstractBaseUser) -> bool:
