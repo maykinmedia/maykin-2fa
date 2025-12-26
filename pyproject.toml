@@ -32,7 +32,7 @@ dependencies = [
     "django>=4.2",
     # TODO: check if we want phonenumberslite or phonenumbers - we typically only
     # use OTP and/or hardware tokens so this may not be relevant at all.
-    "django-two-factor-auth[phonenumberslite,webauthn]",
+    "django-two-factor-auth[webauthn]>=1.18.1",
 ]
 
 [project.urls]
