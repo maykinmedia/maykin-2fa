@@ -19,7 +19,7 @@ local development and/or experimenting:
 
 .. code-block:: bash
 
-    pip install -e .[tests,coverage,docs,release]
+    pip install -e .[tests,docs,release]
 
 Due to some Python path details, we also recommend setting some environment variables:
 
