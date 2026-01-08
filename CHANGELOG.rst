@@ -2,6 +2,13 @@
 Changelog
 =========
 
+2.0.1 (2025-01-07)
+==================
+
+Bugfix release.
+
+* Fixed compatibility with django-otp 1.7+.
+
 2.0.0 (2025-12-26)
 ==================
 
