@@ -32,6 +32,7 @@ requires-python = ">=3.12"
 dependencies = [
     "django>=4.2",
     "django-two-factor-auth[webauthn]>=1.18.1",
+    "django-otp>=1.7.0",
 ]
 
 [project.urls]

@@ -1,4 +1,5 @@
 import functools
+from typing import NoReturn
 
 from django.conf import settings
 from django.contrib.auth import BACKEND_SESSION_KEY
@@ -53,10 +54,15 @@ class OTPMiddleware(_OTPMiddleware):
     MFA at another level outside of our scope.
     """
 
-    def _verify_user(self, request: HttpRequest, user: AnyUser):
+    def _verify_user_sync(self, request: HttpRequest, user: AnyUser):
         # call the super but replace the `is_verified` callable
-        user = super()._verify_user(request, user)
+        user = super()._verify_user_sync(request, user)
         # this is *not* persisted on the user object after authenticate
         user.backend = request.session.get(BACKEND_SESSION_KEY)
         user.is_verified = functools.partial(is_verified, user)  # type: ignore
         return user
+
+    async def _verify_user_async_via_auser(
+        self, request: HttpRequest, auser
+    ) -> NoReturn:
+        raise NotImplementedError("async views/middleware are currently not supported.")
