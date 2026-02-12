@@ -82,3 +82,19 @@ this to:
 
 Alternatively, if you have a custom check, make sure to also check
 ``hijacker.is_verified()``.
+
+.. _api-section:
+
+API
+===
+
+Maykin 2FA provides an API endpoint that can be used to retrieve the status of
+two factor authentication for the current user. An example response of the endpoint
+can be seen below:
+
+.. code-block:: json
+
+    {"authStatus": {"mfaVerified": false}}
+
+.. automodule:: maykin_2fa.api.views
+   :members:

@@ -16,4 +16,5 @@ urlpatterns = [
     path("admin/", include((urlpatterns, "maykin_2fa"))),
     path("admin/", include((webauthn_urlpatterns, "two_factor"))),
     path("admin/", admin.site.urls),
+    path("api/", include("maykin_2fa.api.urls")),
 ]
