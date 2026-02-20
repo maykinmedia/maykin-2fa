@@ -2,6 +2,20 @@
 Changelog
 =========
 
+2.1.0 (2026-02-20)
+==================
+
+Feature release.
+
+**Features**
+
+* [#5] Added API endpoint that exposes authentication and multi-factor verification status
+  of a user.
+
+**Project maintenance**
+
+* Fixed references to non-existent ``coverage`` package extra dependency group.
+
 2.0.1 (2025-01-07)
 ==================
 
