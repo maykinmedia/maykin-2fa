@@ -139,3 +139,16 @@ You can run ``python manage.py check`` to diagnose potential problems.
 
 We recommend putting a link in the admin user links to the
 ``maykin_2fa:account_security`` view where users can manage their backup tokens.
+
+To include the available endpoints, update your root ``urls.py`` like below:
+
+.. code-block::
+
+    urlpatterns = [
+        ...,
+        path("api/", include("maykin_2fa.api.urls")),
+        ...,
+    ]
+
+See :ref:`The API reference section <api-section>` for more information about the
+available endpoints.
