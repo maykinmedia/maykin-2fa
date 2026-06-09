@@ -12,24 +12,23 @@ on:
     - cron: "36 4 * * *"
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python: ['3.12', '3.13', '3.14']
-        django: ['4.2', '5.2', '6.0']
-        exclude:
-          - python: '3.13'
-            django: '4.2'
-          - python: '3.14'
-            django: '4.2'
+        django: ['5.2', '6.0']
 
     name: Run the test suite (Python ${{ matrix.python }}, Django ${{ matrix.django }})
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: ${{ matrix.python }}
 
@@ -43,7 +42,7 @@ jobs:
           DJANGO: ${{ matrix.django }}
 
       - name: Publish coverage report
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -55,18 +54,37 @@ jobs:
     permissions:
       id-token: write
 
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    if: github.event_name == 'push' && github.repository_owner == 'maykinmedia'
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Install OS packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes gettext
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
         with:
-          python-version: '3.12'
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version-file: 'pyproject.toml'
+      - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+        with:
+          version: "0.11.19"
+          enable-cache: false
+
+      - name: Install Django and compile i18n messages
+        run: |
+          uv pip install --system '.[tests]'
+          django-admin compilemessages
+        env:
+          DJANGO_SETTINGS_MODULE: testapp.settings
+          PYTHONPATH: .
 
       - name: Build sdist and wheel
         run: |
-          pip install build --upgrade
+          uv pip install --system build --upgrade
           python -m build
 
       - name: Publish a Python distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+        uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b  # v1.14.0
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
