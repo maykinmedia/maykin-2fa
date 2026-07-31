@@ -60,5 +60,5 @@ def get_valid_totp_token(user: AbstractBaseUser) -> str:
     if device is None:
         raise ValueError("The user does not have a default device set up.")
     if not isinstance(device, TOTPDevice):
-        raise ValueError("The user's default device is not a TOTPDevice.")
+        raise ValueError("The user's default device is not a TOTPDevice.")  # noqa: TRY004
     return _totp_str(device.bin_key)
