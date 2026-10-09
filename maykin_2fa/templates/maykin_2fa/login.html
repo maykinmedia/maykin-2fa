@@ -54,47 +54,57 @@
             enter one of these backup tokens to login to your account.{% endblocktrans %}</p>
         {% endif %}
 
-        <form action="{{ app_path }}" method="post" id="login-form" novalidate>
-            {% csrf_token %}
+        {% block login_form_container %}
 
-            {% if wizard.steps.current == 'auth' %}
-                {{ wizard.management_form }}
+            {# Can be used by downstream projects to add SSO options etc. #}
+            {% block before_login_form %}{% endblock %}
 
-                <div class="form-row">
-                    {{ form.username.errors }}
-                    {{ form.username.label_tag }}
-                    {{ form.username }}
+            <form action="{{ app_path }}" method="post" id="login-form" novalidate>
+                {% csrf_token %}
+
+                {% if wizard.steps.current == 'auth' %}
+                    {{ wizard.management_form }}
+
+                    <div class="form-row">
+                        {{ form.username.errors }}
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                    </div>
+
+                    <div class="form-row">
+                        {{ form.password.errors }}
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </div>
+
+                {% else %}
+                    {% include "maykin_2fa/includes/wizard_form.html" %}
+                {% endif %}
+
+                {% url 'admin_password_reset' as password_reset_url %}
+                {% if password_reset_url and wizard.steps.current == 'auth' %}
+                    <div class="password-reset-link">
+                        <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
+                    </div>
+                {% endif %}
+
+                {# hidden submit button to enable [enter] key, otherwise the 'back' button is used #}
+                <input type="submit" value="" hidden />
+
+                <div class="submit-row">
+                    {% include "maykin_2fa/includes/wizard_actions.html" %}
                 </div>
 
-                <div class="form-row">
-                    {{ form.password.errors }}
-                    {{ form.password.label_tag }}
-                    {{ form.password }}
-                    <input type="hidden" name="next" value="{{ next }}">
-                </div>
+            </form>
 
-            {% else %}
-                {% include "maykin_2fa/includes/wizard_form.html" %}
-            {% endif %}
+            {# Can be used by downstream projects to add SSO options etc. #}
+            {% block after_login_form %}
+                {# Kept for backwards compatibility! #}
+                {% block extra_login_options %}{% endblock %}
+            {% endblock %}
 
-            {% url 'admin_password_reset' as password_reset_url %}
-            {% if password_reset_url and wizard.steps.current == 'auth' %}
-                <div class="password-reset-link">
-                    <a href="{{ password_reset_url }}">{% translate 'Forgotten your password or username?' %}</a>
-                </div>
-            {% endif %}
-
-            {# hidden submit button to enable [enter] key, otherwise the 'back' button is used #}
-            <input type="submit" value="" hidden />
-
-            <div class="submit-row">
-                {% include "maykin_2fa/includes/wizard_actions.html" %}
-            </div>
-
-        </form>
-
-        {# Can be used by downstream projects to add SSO options etc. #}
-        {% block extra_login_options %}{% endblock %}
+        {% endblock login_form_container %}
 
         {% block recovery_options %}
             {% if backup_tokens %}
