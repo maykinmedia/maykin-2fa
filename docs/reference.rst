@@ -30,7 +30,11 @@ This templated is used for the authentication flow:
 
 **Available blocks**
 
-``{% block extra_login_options %}``
+``{% block login_form_container %}``
+    Parent block containing the regular login form and before/after login form
+    blocks.
+
+``{% block before_login_form %}`` and ``{% block after_login_form %}``
     If you provide SSO options like OpenID Connect, you can add them in this block.
 
 ``{% block recovery_options %}``
@@ -41,6 +45,12 @@ This templated is used for the authentication flow:
 ``{% block extra_recovery_options %}``
     Empty by default - you could include an instruction here to contact support to reset
     your device.
+
+``{% block extra_login_options %}``
+    Legacy block that could be used for alternative login options.
+
+    .. version-deprecated:: 2.2.0
+       Use the block ``before_login_form`` or ``after_login_form`` instead.
 
 Other templates
 ---------------
