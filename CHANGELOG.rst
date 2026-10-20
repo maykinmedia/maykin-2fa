@@ -2,6 +2,25 @@
 Changelog
 =========
 
+3.0.0 (2026-10-20)
+==================
+
+Feature and maintenance release.
+
+**💥 Breaking changes**
+
+* Dropped support for Django 4.2, which is end of life.
+
+**Features**
+
+* Updated the login template blocks to be more flexible.
+
+**Project maintenance**
+
+* Hardened the CI pipeline with Zizmor.
+* Translations are now compiled in CI as part of the packaging job.
+* Fixed linter errors reported by the latest Ruff version.
+
 2.1.0 (2026-02-20)
 ==================
 
